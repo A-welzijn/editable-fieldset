@@ -1,6 +1,6 @@
 {
   "name": "awelzijn-editable-fieldset",
-  "version": "1.0.15",
+  "version": "1.0.0",
   "main": [
     "dist/awelzijn-editable-fieldset.js"
   ],
