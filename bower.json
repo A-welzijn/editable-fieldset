@@ -1,0 +1,31 @@
+{
+  "name": "awelzijn-editable-fieldset",
+  "version": "1.0.15",
+  "main": [
+    "dist/awelzijn-editable-fieldset.js"
+  ],
+  "ignore": [
+    ".*",
+    "**/.*",
+    "Gruntfile.js",
+    "package.json",
+    "src",
+    "test",
+    "*.sublime-project"
+  ],
+  "dependencies": {
+    "angular": "~1.3.12",
+    "tink-editable-fieldset-angular": "0.1.0-beta.6",
+    "awelzijn-mail-to": "latest",
+    "awelzijn-loading-overlay": "latest",
+    "tink-core": "latest",
+    "tink-datepicker-angular": "~1.3.0",
+    "tink-theme-ocmw": "~1.9.1"
+  },
+  "exportsOverride": {
+    "tink-editable-fieldset-angular": {
+      "js": "dist/*.js",
+      "css": "dist/*.css"
+    }
+  }
+}

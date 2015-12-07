@@ -1,0 +1,15 @@
+<div class="form-group" ng-class="colspanClass">
+        <div ng-if="title" class="col-xs-12 labelTitle">
+          <label for="tink-username-example">{{title}}</label>
+        </div>
+        <div class="col-xs-12 col-sm-12">
+          <div class="validation">
+          	<div ng-show="editMode" class="panel-field-input" ng-transclude>
+			</div>
+			<div  ng-show="!editMode" contenteditable="false" disabled class="faux-input">{{label || '-'}}</div>
+          </div>
+          <span class="help-block"></span>
+        </div>
+        <div class="col-xs-12 col-sm-6 ng-hide">
+        </div>
+      </div>
