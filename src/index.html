@@ -43,44 +43,44 @@
 
 <div ng-controller="contr as ctrl" class="main">
 	<div class="container">
-<a-welzijn-panel title="Werkgroep" loading="false"  name="ctrl.werkgroep.form">
+<a-welzijn-editable-panel title="Werkgroep" loading="false"  name="ctrl.werkgroep.form">
 	<div >
             <h1>Werkgroepgegevens</h1>
             <div class="row">
-                <a-welzijn-panel-field edit-mode="true" title="Werkgroep naam" label="{{ctrl.werkgroep.naam}}">
+                <a-welzijn-editable-field edit-mode="true" title="Werkgroep naam" label="{{ctrl.werkgroep.naam}}">
                     <input class="form-control" type="text" ng-model="ctrl.werkgroep.naam" />
-                </a-welzijn-panel-field>
+                </a-welzijn-editable-field>
 
-                <a-welzijn-panel-field edit-mode="true" title="Hoofdverantwoordelijke" label="{{(ctrl.werkgroep.hoofdverantwoordelijke.naam + ', ' + ctrl.werkgroep.hoofdverantwoordelijke.voornaam)}}">
+                <a-welzijn-editable-field edit-mode="true" title="Hoofdverantwoordelijke" label="{{(ctrl.werkgroep.hoofdverantwoordelijke.naam + ', ' + ctrl.werkgroep.hoofdverantwoordelijke.voornaam)}}">
                     <input type="text" placeholder="Zoek medewerker" ng-model="ctrl.werkgroep.hoofdverantwoordelijke" typeahead-min-length="3" typeahead-wait-ms="200" typeahead="b as (b.naam + ', ' + b.voornaam) for b in ctrl.getMedewerkers($viewValue)" class="form-control">
-                </a-welzijn-panel-field>
+                </a-welzijn-editable-field>
 
-            <a-welzijn-panel-field edit-mode="true" filter="| date" title="Startdatum" label="{{ctrl.werkgroep.datumVan | date}}">
+            <a-welzijn-editable-field edit-mode="true" filter="| date" title="Startdatum" label="{{ctrl.werkgroep.datumVan | date}}">
                     <data-tink-datepicker data-max-date="ctrl.werkgroep.datumTot" data-ng-model="ctrl.werkgroep.datumVan"> </data-tink-datepicker>
-                </a-welzijn-panel-field>
+                </a-welzijn-editable-field>
 
-                <a-welzijn-panel-field edit-mode="true" title="Soort werkgroep" label="{{ctrl.werkgroep.soort.omschrijving}}">
+                <a-welzijn-editable-field edit-mode="true" title="Soort werkgroep" label="{{ctrl.werkgroep.soort.omschrijving}}">
                     <select class="form-control" ng-options="soortwerkgroep.omschrijving for soortwerkgroep in ctrl.soortWerkgroepen track by soortwerkgroep.id" ng-model="ctrl.werkgroep.soort">
                         <option value="">- kies soort</option>
                     </select>
-                </a-welzijn-panel-field>
+                </a-welzijn-editable-field>
     
-               <a-welzijn-panel-field edit-mode="true" title="national" label="{{ctrl.werkgroep.nationalNoModel}}">
+               <a-welzijn-editable-field edit-mode="true" title="national" label="{{ctrl.werkgroep.nationalNoModel}}">
                     <tink-national-number required="required" name="nationalNoField" data-ng-model="ctrl.werkgroep.nationalNoModel"></tink-national-number>
-                </a-welzijn-panel-field>
-                <a-welzijn-panel-field edit-mode="true"  title="timepicker" label="{{ctrl.werkgroep.datumVan | date:'HH:mm' }}">
+                </a-welzijn-editable-field>
+                <a-welzijn-editable-field edit-mode="true"  title="timepicker" label="{{ctrl.werkgroep.datumVan | date:'HH:mm' }}">
                     <tink-timepicker data-ng-model="ctrl.werkgroep.datumVan"></tink-timepicker>
-                </a-welzijn-panel-field>
+                </a-welzijn-editable-field>
                 
 
-                <a-welzijn-panel-field edit-mode="true" title="datepicker range" label="{{(ctrl.werkgroep.van | date) || '-'}}">
+                <a-welzijn-editable-field edit-mode="true" title="datepicker range" label="{{(ctrl.werkgroep.van | date) || '-'}}">
                     <tink-datepicker-range name="rangepicker" data-first-date="ctrl.werkgroep.van" data-last-date="ctrl.werkgroep.tot"></tink-datepicker-range>
-                </a-welzijn-panel-field>
+                </a-welzijn-editable-field>
 
                
-                <a-welzijn-panel-field edit-mode="false" title="identity" label="{{ctrl.werkgroep.datumTot + '-'}}">
+                <a-welzijn-editable-field edit-mode="false" title="identity" label="{{ctrl.werkgroep.datumTot + '-'}}">
                     <tink-identity-number required="required" name="identityNoField" data-ng-model="ctrl.werkgroep.identityNoModel"></tink-identity-number>
-                </a-welzijn-panel-field>
+                </a-welzijn-editable-field>
                 <button ng-click="ctrl.showForm()"></button>
             </div>
             
@@ -95,12 +95,12 @@
         <button ng-click="ctrl.bewaren();" ng-disabled="!ctrl.werkgroep.form.$dirty" type="button" class="btn-primary">Bewaren</button>
         <button ng-click="ctrl.annuleren();" ng-disabled="!ctrl.werkgroep.form.$dirty" class="margin-left" type="button">Annuleren</button>
     </div>   
-</a-welzijn-panel>
+</a-welzijn-editable-panel>
 	</div>
 </div>
 
 <script type="text/javascript">
-	angular.module('theapp',['tink.datepicker','tink.fieldset','awelzijn.panel','tink.safeApply','tink.nationalnumber','tink.datepicker','tink.identitycardnumber','tink.timepicker','tink.rangedatepicker']).controller('ctrl',function(){
+	angular.module('theapp',['tink.datepicker','tink.fieldset','awelzijn.editableFieldset','tink.safeApply','tink.nationalnumber','tink.datepicker','tink.identitycardnumber','tink.timepicker','tink.rangedatepicker']).controller('ctrl',function(){
 
 	}).controller('contr',['$scope',function(scope){
     this.werkgroep = {naam:'oke',date:new Date(2015,10,25)};

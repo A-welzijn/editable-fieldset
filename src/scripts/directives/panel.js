@@ -1,11 +1,11 @@
 'use strict';
 (function (module) {
   try {
-    module = angular.module('awelzijn.panel');
+    module = angular.module('awelzijn.editableFieldset');
   } catch (e) {
-    module = angular.module('awelzijn.panel', []);
+    module = angular.module('awelzijn.editableFieldset', []);
   }
-  module.directive('aWelzijnPanel', [function () {
+  module.directive('aWelzijnEditablePanel', [function () {
     return {
       restrict: 'E',
       replace: true,

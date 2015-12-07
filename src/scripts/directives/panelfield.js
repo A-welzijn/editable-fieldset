@@ -5,7 +5,7 @@
 	} catch (e) {
 		module = angular.module('awelzijn.editableFieldset', []);
 	}
-	module.directive('aWelzijnPanelField', ['$compile','$timeout','safeApply',function ($compile,$timeout,safeApply) {
+	module.directive('aWelzijnEditableField', ['$compile','$timeout','safeApply',function ($compile,$timeout,safeApply) {
 		return {
 			restrict: 'E',
 			replace: true,
