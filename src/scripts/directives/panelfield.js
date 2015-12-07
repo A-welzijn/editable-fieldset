@@ -1,9 +1,9 @@
 'use strict';
 (function (module) {
 	try {
-		module = angular.module('awelzijn.panel');
+		module = angular.module('awelzijn.editableFieldset');
 	} catch (e) {
-		module = angular.module('awelzijn.panel', []);
+		module = angular.module('awelzijn.editableFieldset', []);
 	}
 	module.directive('aWelzijnPanelField', ['$compile','$timeout','safeApply',function ($compile,$timeout,safeApply) {
 		return {
