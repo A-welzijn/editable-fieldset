@@ -24,6 +24,7 @@
 <script src="bower_components/angular-touch/angular-touch.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/tink-helper-date-angular/dist/tink-helper-date-angular.js"></script>
+<script src="bower_components/randexp/build/randexp.min.js"></script>
 <script src="bower_components/tink-helper-safe-apply-angular/dist/tink-helper-safe-apply-angular.js"></script>
 <script src="bower_components/tink-helper-format-angular/dist/tink-helper-format-angular.js"></script>
 <script src="bower_components/tink-datepicker-angular/dist/tink-datepicker-angular.js"></script>
@@ -43,7 +44,7 @@
 
 <div ng-controller="contr as ctrl" class="main">
 	<div class="container">
-<a-welzijn-editable-panel title="Werkgroep" loading="false"  name="ctrl.werkgroep.form">
+<a-welzijn-editable-panel title="Werkgroep" loading="false" auto-select  name="ctrl.werkgroep.form">
 	<div >
             <h1>Werkgroepgegevens</h1>
             <div class="row">
