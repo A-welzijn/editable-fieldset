@@ -103,7 +103,8 @@
 						national:'tink-national-number',
 						datepickerRange:'tink-datepicker-range',
 						tinkIdentity:'tink-identity-number',
-						textarea:'textarea'
+						textarea:'textarea',
+						awelzijnCombine:'awelzijn-combine'
 					}
 					var calculated = {};
 					for(var i=0;i<Object.keys(editableFields).length;i++){
