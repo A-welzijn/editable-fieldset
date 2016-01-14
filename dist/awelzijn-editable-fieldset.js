@@ -42,7 +42,7 @@
 	try {
 		module = angular.module('awelzijn.editableFieldset');
 	} catch (e) {
-		module = angular.module('awelzijn.editableFieldset', []);
+		module = angular.module('awelzijn.editableFieldset',['tink.fieldset']);
 	}
 	module.directive('aWelzijnEditableField', ['$compile','$timeout','safeApply',function ($compile,$timeout,safeApply) {
 		return {
@@ -80,15 +80,22 @@
 				});
 
 				//This creates the objects we are going to need !
-				function addToObject(value,type,object){
-					var fake = $('<div contenteditable="true" class="faux-input">{{label || "-"}}</div>');
-					var scope = $(value).scope();
-					
+				function addToObject(value,type,object,showField){
+
+					var fake,
+					scope;
+					if(showField){
+						fake = showField;
+						scope = $(value).scope();
+					}else{
+						fake = $('<div contenteditable="true" class="faux-input">{{label || "-"}}</div>');
+						scope = $(value).scope();
+					}					
 					
 					if(object[type] && object[type] instanceof Array){
 						object[type].push({real:value,fake:fake,scope:scope});
 					}else{
-						object[type] = [{real:value,fake:fake,scope:scope}];
+						object[type] = [{used:{real:undefined,fake:undefined},real:value,fake:fake,scope:scope}];
 					}
 					return object;
 				}
@@ -104,19 +111,25 @@
 						datepickerRange:'tink-datepicker-range',
 						tinkIdentity:'tink-identity-number',
 						textarea:'textarea',
-						awelzijnCombine:'awelzijn-combine'
+						awelzijnTransclude:'awelzijn-transclude'
 					}
 					var calculated = {};
 					for(var i=0;i<Object.keys(editableFields).length;i++){
 						var currentKey = Object.keys(editableFields)[i],
 							currentValue = editableFields[currentKey];
 							var childs = $(element).children();
-							for(var j=0;j<childs.length;j++){
-								var child = $(childs[j]);
-								if(child.is(currentValue)){
-									calculated = addToObject(child,currentKey,calculated)
+								for(var j=0;j<childs.length;j++){
+									var child = $(childs[j]);
+									if(child.is(currentValue) && editableFields.awelzijnTransclude === currentValue){
+										var fake = child.find('transclude-show').clone();
+										var real = child.find('transclude-edit').clone();
+										element.replaceWith(real);
+										calculated = addToObject(real,currentKey,calculated,fake)										
+									}else if(child.is(currentValue)){
+										calculated = addToObject(child,currentKey,calculated,undefined)
+									}
 								}
-							}
+							
 					}
 					return calculated;
 				}
@@ -127,16 +140,21 @@
 						var currentKey = Object.keys(edit)[i],
 							currentValue = edit[currentKey];
 						for(var j = 0;j<currentValue.length;j++){
-							var fake = currentValue[j].fake,
-							real = currentValue[j].real,
-							scopeField = currentValue[j].scope;
+							var usedFake = currentValue[j].used.fake,
+							usedReal = currentValue[j].used.real,
+							scopeField = currentValue[j].scope,
+							real = $(currentValue[j].real).clone();
+							if(usedFake === undefined && usedReal === undefined){
+								usedFake = currentValue[j].fake;
+								usedReal = $(currentValue[j].real).clone();
+							}
+							currentValue[j].used.real = real;
+							currentValue[j].used.fake = usedFake;
 
-							$(fake).replaceWith(real);
+							$(usedFake).replaceWith(real);
 							if(formElement && formElement.isolateScope()){
 								formElement.isolateScope().addEvents($(real));
 							}						
-
-					        
 							$compile(real)(scopeField);
 						}
 					}
@@ -166,30 +184,46 @@
 							currentValue = edit[currentKey];
 						for(var j = 0;j<currentValue.length;j++){
 
+							var usedFake = currentValue[j].used.fake,
+							usedReal = currentValue[j].used.real,
+							scopeField = currentValue[j].scope,
+							fake = $(currentValue[j].fake).clone();
+							if(usedFake === undefined && usedReal === undefined){
+								usedReal = currentValue[j].real;
+								usedFake = $(currentValue[j].fake).clone();
+							}
+
+							formElement.isolateScope().removeEvents($(usedReal));
 								
-								var fake = currentValue[j].fake,
-									real = currentValue[j].real,
-									scopeField = currentValue[j].scope;
+							currentValue[j].used.real = usedReal;
+							currentValue[j].used.fake = fake;
+							$(usedReal).replaceWith($(fake))
 
-								formElement.isolateScope().removeEvents($(real));
-								
-
-								$(real).replaceWith($(fake))
-
-								$compile(fake)($scope);
-
-								fake.bind('mousedown click touchstart',function(){
-									$timeout(function(){
-										$(real).focusin();
-										$(real).focus();
-										openSelect($(real),'focus');
-										openSelect($(real),'mousedown');
-									},15)								
+							$compile(fake)($scope);
+								fake.bind('mousedown click touchstart',{i: currentKey,j:j},function(evt){
+									$timeout(function(values){
+										var real = edit[values.i][values.j].used.real;
+										if(real === undefined){
+											real = edit[values.i][values.j].real;
+										}
+										if($(real).is('transclude-edit')){
+											formElement.isolateScope().setClassActive("mouseFocus",null);
+										}else{
+											focusin(real);
+										}
+									},150, true, {i:evt.data.i,j:evt.data.j})								
 								})
 							formElement.isolateScope().addEvents($(fake));							
 						}
 					}
 
+				}
+
+				function focusin(real){
+					$(real).focusin();
+					$(real).focus();
+					openSelect($(real),'focus');
+					openSelect($(real),'mousedown');
 				}
 
 				$scope.hasClickCallback = function () {
