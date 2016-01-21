@@ -54,16 +54,16 @@
 							_addedObjs.push({fake:$(fake),real:$(value)});
 
 							fake.bind('mousedown click touchstart',function(){
+								formElement.isolateScope().setClassActive("mouseFocus",null);
 								$timeout(function(values){
 									if($(value).is('transclude-edit')){
-										formElement.isolateScope().setClassActive("mouseFocus",null);
 										if($(value).find(':input').length >0){
 											focusin($(value).find(':input')[0]);
 										}
 									}else{
 										focusin(value);
 									}
-								},50);
+								},10);
 								return false;	
 							});
 
