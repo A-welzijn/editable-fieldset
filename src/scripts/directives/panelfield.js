@@ -56,12 +56,14 @@
 							fake.bind('mousedown click touchstart',function(){
 								$timeout(function(values){
 									if($(value).is('transclude-edit')){
-										focusin(value);
 										formElement.isolateScope().setClassActive("mouseFocus",null);
+										if($(value).find(':input').length >0){
+											focusin($(value).find(':input')[0]);
+										}
 									}else{
 										focusin(value);
 									}
-								},150);
+								},50);
 								return false;	
 							});
 
@@ -91,10 +93,9 @@
 								if(elem.real){
 									elem.real.css('display','none');
 								}
+								formElement.isolateScope().addEvents($(elem.fake));
 							}	
 						}
-
-
 
 						//this finds the fields we want to adjust
 						function findEditableFields(element){
