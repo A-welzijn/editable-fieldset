@@ -1,6 +1,6 @@
 # A-Welzijn Panel en Panel fields
 
-v3.0.2
+v3.0.3
 
 ### Hoe het eruit ziet
 

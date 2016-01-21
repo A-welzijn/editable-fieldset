@@ -1,7 +1,7 @@
 {
   "name": "awelzijn-editable-fieldset",
   "description": "Panel directive",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "repository": {
     "type": "git",
     "url": "git@github.com:A-welzijn/editable-fieldset.git"
