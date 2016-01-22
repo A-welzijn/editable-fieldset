@@ -48,23 +48,24 @@
 							}else{
 								var fake = $('<div contenteditable="true" class="faux-input">{{label || "-"}}</div>');
 								fake = $compile(fake)($scope);
+								$(fake).insertAfter($(value));
 							}
-							$(fake).insertAfter($(value));
 							$(value).css('display','none');
 							_addedObjs.push({fake:$(fake),real:$(value)});
 
-							fake.bind('mousedown click touchstart',function(){
-								formElement.isolateScope().setClassActive("mouseFocus",null);
-								$timeout(function(values){
-									if($(value).is('transclude-edit')){
-										if($(value).find(':input').length >0){
-											focusin($(value).find(':input')[0]);
+							fake.bind('mousedown click touchstart',function(e){
+								if(!$(e.target).is('[editable-focus]')){
+									formElement.isolateScope().setClassActive("mouseFocus",null);
+									$timeout(function(values){
+										if($(value).is('transclude-edit')){
+											if($(value).find(':input').length >0){
+												focusin($(value).find(':input')[0]);
+											}
+										}else{
+											focusin(value);
 										}
-									}else{
-										focusin(value);
-									}
-								},10);
-								return false;	
+									},10);
+								}
 							});
 
 							if(formElement && formElement.isolateScope()){
@@ -121,7 +122,6 @@
 											if(child.is(currentValue) && editableFields.awelzijnTransclude === currentValue){
 												var fake = child.find('transclude-show');
 												var real = child.find('transclude-edit');
-												element.replaceWith(real);
 												var isolateScope = child.find('transclude-edit').isolateScope()
 												calculated = addToObject(real,currentKey,calculated,fake,isolateScope);
 											}else if(child.is(currentValue)){
