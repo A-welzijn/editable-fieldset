@@ -7,6 +7,10 @@
   margin: 3px 0 20px 0;
 }
 
+.hide-padding{
+    padding:0 !important;
+}
+
 .card-body h1:not(:first-child) {
   margin-top: 20px;
 }

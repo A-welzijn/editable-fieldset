@@ -29,7 +29,6 @@
               }else if(first.find('div[contentEditable]:first').length > 0){
                 first.find('div[contentEditable]:first').focus().focusin();
               }
-              
             },20);
           },15) 
         }
