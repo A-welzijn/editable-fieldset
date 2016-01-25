@@ -14,7 +14,8 @@
         title: '@',
         loading: '=',
         name:'=?',
-        status:'=?'
+        status:'=?',
+        hideAll:'=?'
       },
       link:function($scope,elem,$attrs){
         var formElement = elem.find('[tink-fieldset]');
