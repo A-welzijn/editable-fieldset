@@ -29,7 +29,6 @@
               }else if(first.find('div[contentEditable]:first').length > 0){
                 first.find('div[contentEditable]:first').focus().focusin();
               }
-              
             },20);
           },15) 
         }
@@ -217,7 +216,7 @@
 
   $templateCache.put('templates/panel.html',
     "<section class=card> <header class=card-heading> <i class=\"fa fa-th-large\"></i> <h1 class=card-title>{{title}}\n" +
-    "<a class=anchorPijl anchor-smooth-scroll=top></a> </h1> </header> <div class=\"card-body has-no-padding\" loading=loading> <form novalidate name=name class=\"fieldset-editable form-horizontal\" tink-form-status=status tink-form-editable=true tink-fieldset> <div ng-show=\"!loading && !hideAll\" ng-transclude></div> <div ng-show=\"loading && !hideAll\" style=\"text-align: center\"> <div class=loader>De gegevens worden opgevraagd.</div> </div> </form> </div> </section>"
+    "<a class=anchorPijl anchor-smooth-scroll=top></a> </h1> </header> <div class=\"card-body has-no-padding\" ng-class=\"{'hide-padding':hideAll}\" loading=loading> <form novalidate name=name class=\"fieldset-editable form-horizontal\" tink-form-status=status tink-form-editable=true tink-fieldset> <div ng-show=\"!loading && !hideAll\" ng-transclude></div> <div ng-show=\"loading && !hideAll\" style=\"text-align: center\"> <div class=loader>De gegevens worden opgevraagd.</div> </div> </form> </div> </section>"
   );
 
 
