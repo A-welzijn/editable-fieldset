@@ -35,7 +35,7 @@
 						var edit = findEditableFields(element.find('[ng-transclude]'));				
 
 						$scope.$watch(function(){return formElement.isolateScope().tinkFormStatus},function(value,old){
-							if(old === 'mouseFocus'){
+							if(old === 'mouseFocus' && value !== 'mouseFocus'){
 								setFakeInput();
 							}else if(value === 'mouseFocus'){
 								setRealInput();					
